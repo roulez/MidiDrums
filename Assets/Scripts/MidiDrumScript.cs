@@ -7,7 +7,7 @@ public class MidiDrumScript : MonoBehaviour {
 	//Initializes variables needed to read the arduino Data
 	const int serialPort = 9600;
 	const string portName = "COM3";
-	SerialPort arduinoPort = new SerialPort(portName,serialPort);
+	SerialPort arduinoPort;
 
 	//Initializes the path to the sound files
 	string[] soundFiles = {
@@ -17,44 +17,64 @@ public class MidiDrumScript : MonoBehaviour {
 					,"Sounds/3"
 					,"Sounds/4"
 						};
-	List<AudioSource> test = new List<AudioSource>();
+	List<AudioSource> audioSources = new List<AudioSource>();
 
-	// Use this for initialization
-	void Start () {
-		arduinoPort.Open ();
-		arduinoPort.ReadTimeout = 1;
+	public MidiDrumScript(GameObject gameObject){
+		this.arduinoPort = new SerialPort (portName, serialPort);
+		this.arduinoPort.Open ();
+		this.arduinoPort.ReadTimeout = 1;
 
 		for (int i = 0; i < soundFiles.Length; i++) {
 			AudioSource audio = gameObject.AddComponent<AudioSource>();
 			audio.clip = Resources.Load (soundFiles[i]) as AudioClip;
-			test.Add (audio);
+			audioSources.Add (audio);
+		}
+	}
+
+	// Use this for initialization
+	void Start () {
+		this.arduinoPort = new SerialPort (portName, serialPort);
+		this.arduinoPort.Open ();
+		this.arduinoPort.ReadTimeout = 1;
+
+		for (int i = 0; i < soundFiles.Length; i++) {
+			AudioSource audio = gameObject.AddComponent<AudioSource>();
+			audio.clip = Resources.Load (soundFiles[i]) as AudioClip;
+			audioSources.Add (audio);
 		}
 	}
 
 	/*
 	 * Reads and returns the data read from the arduino in format 'Piezo-Volume'
 	*/
-	string readPort(){
-		string data = arduinoPort.ReadLine();
+	public string readPort(){
+		try{
+			string data = this.arduinoPort.ReadLine();
 
-		if (data != null && data != "" && data.Contains ("-")) {
-			var arduinoData = data.Split ('-');
-			if (arduinoData [0] != "" && arduinoData [1] != "") {
-				return data;
+			if (data != null && data != "" && data.Contains ("-")) {
+				var arduinoData = data.Split ('-');
+				if (arduinoData [0] != "" && arduinoData [1] != "") {
+					return data;
+				} else {
+					return "";
+				}
 			} else {
-				return "ERROR";
+				return "";
 			}
-		} else {
-			return "ERROR";
+		}
+		catch(System.Exception ex){
+			Debug.Log (ex);
+			return "";
 		}
 	}
 
 	/*
 	 * Plays the sound of a sensor with an specified volume
 	*/
-	void playSound(int sensor, int volumen){
-		Debug.Log ("Playing: "+ test[sensor]);
-		test [sensor].Play ();
+	public void playSound(int sensor, int volume){
+		if (sensor >= 0 && sensor <= this.audioSources.Count) {
+			audioSources [sensor].Play ();
+		}
 	}
 	
 	// Update is called once per frame

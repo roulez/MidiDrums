@@ -11,3 +11,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/creditsScene.unity
     guid: f7e7bfb693b29e0429c0fcec6f3bb009
+  - enabled: 1
+    path: Assets/Scenes/freeModeScene.unity
+    guid: d5f39321026986047af21682a3ea98f7

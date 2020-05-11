@@ -9,6 +9,12 @@ public class MainMenuBehaviour : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		//Button to start the free mode of the App
+		creditsButton = GameObject.Find("FreeMode").GetComponent<Button>();
+		creditsButton.onClick.AddListener(
+			delegate{
+				SceneManager.LoadScene("freeModeScene");
+			});
 		
 		//Button for showing the credits
 		creditsButton = GameObject.Find("Credits").GetComponent<Button>();
