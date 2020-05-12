@@ -18,6 +18,8 @@ public class MidiDrumScript : MonoBehaviour {
 					,"Sounds/4"
 						};
 	List<AudioSource> audioSources = new List<AudioSource>();
+	public string midiData = "";
+	private bool finished = false;
 
 	public MidiDrumScript(GameObject gameObject){
 		this.arduinoPort = new SerialPort (portName, serialPort);
@@ -49,7 +51,33 @@ public class MidiDrumScript : MonoBehaviour {
 	*/
 	public string readPort(){
 		try{
-			string data = this.arduinoPort.ReadLine();
+			string data = this.arduinoPort.ReadExisting();
+			string test = "";
+			//Debug.Log("Empieza");
+			foreach(char c in data){
+				if(c != '|'){
+					this.midiData += c;
+				}
+				else{
+					this.finished = true;
+				}
+			}
+			//Debug.Log("Termina");
+
+			if(this.finished){
+				this.finished = false;
+				string aux = this.midiData;
+				this.midiData = "";
+
+				return aux;
+			}
+			else {
+				return "";
+			}
+
+			/*if (test != null && test != ""){
+				Debug.Log("Despues del for: " + test);
+			}
 
 			if (data != null && data != "" && data.Contains ("-")) {
 				var arduinoData = data.Split ('-');
@@ -60,10 +88,9 @@ public class MidiDrumScript : MonoBehaviour {
 				}
 			} else {
 				return "";
-			}
+			}*/
 		}
 		catch(System.Exception ex){
-			Debug.Log (ex);
 			return "";
 		}
 	}
@@ -72,6 +99,7 @@ public class MidiDrumScript : MonoBehaviour {
 	 * Plays the sound of a sensor with an specified volume
 	*/
 	public void playSound(int sensor, int volume){
+		Debug.Log("Debug: " + audioSources [sensor]);
 		if (sensor >= 0 && sensor <= this.audioSources.Count) {
 			audioSources [sensor].Play ();
 		}

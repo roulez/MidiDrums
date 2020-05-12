@@ -28,7 +28,8 @@ public class FreeModeBehaviour : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		try{
-			this.arduinoInput = this.midiCrontoller.readPort ();
+			this.arduinoInput = this.midiCrontoller.readPort();
+			//Debug.Log("Input: " + this.arduinoInput);
 
 			if (this.arduinoInput != "") {
 				var aux = this.arduinoInput.Split ('-');
@@ -39,7 +40,6 @@ public class FreeModeBehaviour : MonoBehaviour {
 			}
 		}
 		catch(System.Exception ex){
-			Debug.Log (ex);
 		}
 	}
 }
