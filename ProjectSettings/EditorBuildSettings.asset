@@ -14,3 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/freeModeScene.unity
     guid: d5f39321026986047af21682a3ea98f7
+  - enabled: 1
+    path: Assets/Scenes/trackSelectionScene.unity
+    guid: 31b0b6420cdd78b41974bb18f6cba801
+  m_configObjects: {}

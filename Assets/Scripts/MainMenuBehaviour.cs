@@ -9,6 +9,13 @@ public class MainMenuBehaviour : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		//Button to start the training mode of the App
+		creditsButton = GameObject.Find("GuidedMode").GetComponent<Button>();
+		creditsButton.onClick.AddListener(
+			delegate{
+				SceneManager.LoadScene("trackSelectionScene");
+			});
+		
 		//Button to start the free mode of the App
 		creditsButton = GameObject.Find("FreeMode").GetComponent<Button>();
 		creditsButton.onClick.AddListener(
