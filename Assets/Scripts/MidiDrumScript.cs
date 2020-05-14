@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO.Ports;
 using UnityEngine;
 
-public class MidiDrumScript : MonoBehaviour {
+public class MidiDrumScript {
 	//Initializes variables needed to read the arduino Data
 	const int serialPort = 9600;
 	const string portName = "COM3";
@@ -20,6 +20,9 @@ public class MidiDrumScript : MonoBehaviour {
 	List<AudioSource> audioSources = new List<AudioSource>();
 	public string midiData = "";
 	private bool finished = false;
+	private const int numberOfPiezos = 5;
+	public List<string> midiArray = new List<string>(numberOfPiezos);
+	public List<bool> midiFinished = new List<bool>(numberOfPiezos);
 
 	public MidiDrumScript(GameObject gameObject){
 		this.arduinoPort = new SerialPort (portName, serialPort);
@@ -33,19 +36,17 @@ public class MidiDrumScript : MonoBehaviour {
 		}
 	}
 
-	// Use this for initialization
-	void Start () {
+	public MidiDrumScript(){
 		this.arduinoPort = new SerialPort (portName, serialPort);
 		this.arduinoPort.Open ();
 		this.arduinoPort.ReadTimeout = 1;
 
-		for (int i = 0; i < soundFiles.Length; i++) {
-			AudioSource audio = gameObject.AddComponent<AudioSource>();
-			audio.clip = Resources.Load (soundFiles[i]) as AudioClip;
-			audioSources.Add (audio);
+		for (int i = 0; i < numberOfPiezos; i++) {
+			this.midiArray[i] = "";
+			this.midiFinished[i] = false;
 		}
 	}
-
+		
 	/*
 	 * Reads and returns the data read from the arduino in format 'Piezo-Volume'
 	*/
@@ -74,21 +75,34 @@ public class MidiDrumScript : MonoBehaviour {
 			else {
 				return "";
 			}
+		}
+		catch(System.Exception ex){
+			return "";
+		}
+	}
 
-			/*if (test != null && test != ""){
-				Debug.Log("Despues del for: " + test);
+	public string readMultiplePorts(int sensor){
+		try{
+			if(this.midiArray[sensor] != "" && this.midiFinished[sensor]){
+				var aux = this.midiArray[sensor];
+				this.midiArray[sensor] = "";
+				this.midiFinished[sensor] = false;
+				return aux;
 			}
+			else{
+				string data = this.arduinoPort.ReadExisting();
+				string test = "";
 
-			if (data != null && data != "" && data.Contains ("-")) {
-				var arduinoData = data.Split ('-');
-				if (arduinoData [0] != "" && arduinoData [1] != "") {
-					return data;
-				} else {
-					return "";
+				foreach(char c in data){
+					if(c != '|'){
+						this.midiArray[sensor] += c;
+					}
+					else{
+						this.midiFinished[sensor] = true;
+					}
 				}
-			} else {
 				return "";
-			}*/
+			}
 		}
 		catch(System.Exception ex){
 			return "";
@@ -104,23 +118,4 @@ public class MidiDrumScript : MonoBehaviour {
 			audioSources [sensor].Play ();
 		}
 	}
-	
-	// Update is called once per frame
-	/*void Update () {
-		try{
-			string data = arduinoPort.ReadLine();
-
-			if(data != null && data != "" && data.Contains("-")){
-				var arduinoData = data.Split('-');
-				if(arduinoData[0] != "" && arduinoData[1] != ""){
-					Debug.Log("Piezo: " + arduinoData[0] + " || Volumen: " + arduinoData[1]);
-					this.playSound(int.Parse(arduinoData[0]),15);
-				}
-			}
-		}
-		catch(System.Exception ex){
-			Debug.Log (ex);
-		}
-
-	}*/
 }
