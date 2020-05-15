@@ -97,7 +97,6 @@ public class MidiDrumScript {
 
 	public string readMultiplePorts(int sensor){
 		try{
-			//Debug.Log("Sensor calling: " + sensor);
 			//If we have an input saved for thah sensor, we pick that input and return it
 			if(this.midiArray[sensor] != "" && this.midiFinished[sensor]){
 				//We empty the entry so next time we read it from the arduino
@@ -141,7 +140,6 @@ public class MidiDrumScript {
 	 * Plays the sound of a sensor with an specified volume
 	*/
 	public void playSound(int sensor, int volume){
-		Debug.Log("Debug: " + audioSources [sensor]);
 		if (sensor >= 0 && sensor <= this.audioSources.Count) {
 			audioSources [sensor].Play ();
 		}

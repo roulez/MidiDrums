@@ -44,7 +44,6 @@ public class FreeModeBehaviour : MonoBehaviour {
 	void Update () {
 		try{
 			this.arduinoInput = this.midiCrontoller.readPort();
-			//Debug.Log("Input: " + this.arduinoInput);
 
 			if (this.arduinoInput != "") {
 				var aux = this.arduinoInput.Split ('-');
@@ -60,11 +59,12 @@ public class FreeModeBehaviour : MonoBehaviour {
 		}
 	}
 
+	/*
+	 * Shows the image of the drum part that has been hited
+	*/
 	IEnumerator ManageImagery(int sensor){
-		Debug.Log ("Encendiendo imagen: " + sensor);
 		this.drumParts[sensor].gameObject.SetActive(true);
 		yield return new WaitForSeconds(this.timeOnScreen);
-		Debug.Log ("Apagando imagen: " + sensor);
 		this.drumParts[sensor].gameObject.SetActive(false);
 	}
 }

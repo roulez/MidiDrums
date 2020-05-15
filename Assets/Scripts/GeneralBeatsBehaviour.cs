@@ -8,6 +8,7 @@ public class GeneralBeatsBehaviour : MonoBehaviour
 	public float notesSpeed;
 	//Control if the application is paused
 	private bool isPaused;
+	//Allows the notes to call the script of the scene
 	public GameObject mainCamera;
 	public GuidedModeBehaviour mainScript;
 
