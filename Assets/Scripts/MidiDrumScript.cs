@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.IO.Ports;
+using System.Text;
 using UnityEngine;
 
 public class MidiDrumScript {
@@ -22,6 +23,7 @@ public class MidiDrumScript {
 	private bool finished = false;
 	private const int numberOfPiezos = 5;
 	public List<string> midiArray = new List<string>();
+	public List<string> midiAux = new List<string>();
 	public List<bool> midiFinished = new List<bool>();
 
 	public MidiDrumScript(GameObject gameObject){
@@ -40,6 +42,7 @@ public class MidiDrumScript {
 
 		for (int i = 0; i < numberOfPiezos; i++) {
 			this.midiArray.Add("");
+			this.midiAux.Add("");
 			this.midiFinished.Add(false);
 		}
 	}
@@ -54,6 +57,7 @@ public class MidiDrumScript {
 
 		for (int i = 0; i < numberOfPiezos; i++) {
 			this.midiArray.Add("");
+			this.midiAux.Add("");
 			this.midiFinished.Add(false);
 		}
 	}
@@ -94,11 +98,10 @@ public class MidiDrumScript {
 
 	public string readMultiplePorts(int sensor){
 		try{
+			//Debug.Log("Sensor calling: " + sensor);
 			//If we have an input saved for thah sensor, we pick that input and return it
 			if(this.midiArray[sensor] != "" && this.midiFinished[sensor]){
-				Debug.Log("Leyendo entrada anterior: " + this.midiArray[sensor] + " | Sensor: " + sensor);
-
-				//We wmpty the entry so next time we read it from the arduino
+				//We empty the entry so next time we read it from the arduino
 				var aux = this.midiArray[sensor];
 				this.midiArray[sensor] = "";
 				this.midiFinished[sensor] = false;
@@ -112,11 +115,20 @@ public class MidiDrumScript {
 
 				foreach(char c in data){
 					if(c != '|'){
-						this.midiArray[sensor] += c;
+						this.midiAux[sensor] += c;
 					}
+					//If we reach the end of the reading we assign the correct value
 					else{
-						this.midiFinished[sensor] = true;
+						//We parse the note of the correct reading
+						var aux = this.midiAux[sensor].Split ('-');
+						int note = int.Parse(aux [0]);
+
+						//We assign the value of the reading to the correct position of the array and we restart the aux array
+						this.midiArray[note] = this.midiAux[sensor];
+						this.midiAux[sensor] = "";
+						this.midiFinished[note] = true;
 					}
+
 				}
 				return "";
 			}

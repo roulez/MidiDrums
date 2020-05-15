@@ -17,6 +17,7 @@ public class GeneralBeatsBehaviour : MonoBehaviour
 		this.isPaused = false;
 		this.notesSpeed = this.notesSpeed / 60f;
 
+		//We get the script for the scene so we can call the function to read from the arduino from the notes
 		this.mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
 		this.mainScript = this.mainCamera.GetComponent<GuidedModeBehaviour>();
     }
