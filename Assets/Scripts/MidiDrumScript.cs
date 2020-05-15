@@ -21,10 +21,13 @@ public class MidiDrumScript {
 	public string midiData = "";
 	private bool finished = false;
 	private const int numberOfPiezos = 5;
-	public List<string> midiArray = new List<string>(numberOfPiezos);
-	public List<bool> midiFinished = new List<bool>(numberOfPiezos);
+	public List<string> midiArray = new List<string>();
+	public List<bool> midiFinished = new List<bool>();
 
 	public MidiDrumScript(GameObject gameObject){
+		this.midiArray = new List<string>();
+		this.midiFinished = new List<bool>();
+
 		this.arduinoPort = new SerialPort (portName, serialPort);
 		this.arduinoPort.Open ();
 		this.arduinoPort.ReadTimeout = 1;
@@ -34,16 +37,24 @@ public class MidiDrumScript {
 			audio.clip = Resources.Load (soundFiles[i]) as AudioClip;
 			audioSources.Add (audio);
 		}
+
+		for (int i = 0; i < numberOfPiezos; i++) {
+			this.midiArray.Add("");
+			this.midiFinished.Add(false);
+		}
 	}
 
 	public MidiDrumScript(){
+		this.midiArray = new List<string>();
+		this.midiFinished = new List<bool>();
+
 		this.arduinoPort = new SerialPort (portName, serialPort);
 		this.arduinoPort.Open ();
 		this.arduinoPort.ReadTimeout = 1;
 
 		for (int i = 0; i < numberOfPiezos; i++) {
-			this.midiArray[i] = "";
-			this.midiFinished[i] = false;
+			this.midiArray.Add("");
+			this.midiFinished.Add(false);
 		}
 	}
 		
@@ -83,13 +94,19 @@ public class MidiDrumScript {
 
 	public string readMultiplePorts(int sensor){
 		try{
+			//If we have an input saved for thah sensor, we pick that input and return it
 			if(this.midiArray[sensor] != "" && this.midiFinished[sensor]){
+				Debug.Log("Leyendo entrada anterior: " + this.midiArray[sensor] + " | Sensor: " + sensor);
+
+				//We wmpty the entry so next time we read it from the arduino
 				var aux = this.midiArray[sensor];
 				this.midiArray[sensor] = "";
 				this.midiFinished[sensor] = false;
 				return aux;
 			}
+			//If there is no entry, we read it from the arduino
 			else{
+				//We read the whole entry untill we find the '|' character
 				string data = this.arduinoPort.ReadExisting();
 				string test = "";
 
@@ -105,6 +122,7 @@ public class MidiDrumScript {
 			}
 		}
 		catch(System.Exception ex){
+			Debug.Log("ERROR: " + ex);
 			return "";
 		}
 	}
