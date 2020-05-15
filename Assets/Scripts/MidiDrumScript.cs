@@ -68,8 +68,7 @@ public class MidiDrumScript {
 	public string readPort(){
 		try{
 			string data = this.arduinoPort.ReadExisting();
-			string test = "";
-			//Debug.Log("Empieza");
+
 			foreach(char c in data){
 				if(c != '|'){
 					this.midiData += c;
@@ -78,7 +77,6 @@ public class MidiDrumScript {
 					this.finished = true;
 				}
 			}
-			//Debug.Log("Termina");
 
 			if(this.finished){
 				this.finished = false;
@@ -92,6 +90,7 @@ public class MidiDrumScript {
 			}
 		}
 		catch(System.Exception ex){
+			Debug.Log (ex);
 			return "";
 		}
 	}
@@ -111,7 +110,6 @@ public class MidiDrumScript {
 			else{
 				//We read the whole entry untill we find the '|' character
 				string data = this.arduinoPort.ReadExisting();
-				string test = "";
 
 				foreach(char c in data){
 					if(c != '|'){

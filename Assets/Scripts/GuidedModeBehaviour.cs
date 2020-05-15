@@ -36,7 +36,7 @@ public class GuidedModeBehaviour : MonoBehaviour
 			}
 		}
 		catch(System.Exception ex){
-
+			Debug.Log (ex);
 		}
 	}
 }

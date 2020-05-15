@@ -56,6 +56,7 @@ public class FreeModeBehaviour : MonoBehaviour {
 			}
 		}
 		catch(System.Exception ex){
+			Debug.Log (ex);
 		}
 	}
 

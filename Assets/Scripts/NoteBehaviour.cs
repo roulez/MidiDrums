@@ -26,7 +26,7 @@ public class NoteBehaviour : MonoBehaviour
 			}
 		}
 		catch(System.Exception ex){
-			
+			Debug.Log (ex);
 		}
     }
 
