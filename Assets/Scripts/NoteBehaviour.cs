@@ -67,7 +67,7 @@ public class NoteBehaviour : MonoBehaviour
 		}
 		//If the note leaves the collider completely, if the note hasn't been hitted we count that as a missed note
 		else if (box.tag == "OffBeat") {
-			this.offBeat = true;
+			this.offBeat = false;
 
 			if (!this.beenHitted) {
 				GuidedModeBehaviour.instance.noteMissed ();

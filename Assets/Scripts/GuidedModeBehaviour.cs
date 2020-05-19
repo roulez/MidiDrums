@@ -12,6 +12,10 @@ public class GuidedModeBehaviour : MonoBehaviour
 
 	//We create an instance of the class so the notes can acces the code
 	public static GuidedModeBehaviour instance;
+
+	//Audio clip of the background music for the track
+	public AudioSource musicTrack;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,6 +23,10 @@ public class GuidedModeBehaviour : MonoBehaviour
 		this.missedNotes = 0;
 		this.onBeatNotes = 0;
 		this.offBeatNotes = 0;
+
+		//We load the audio from the track that is selected and we play it
+		this.musicTrack.clip = Resources.Load (Utilities.getCurrentTrack()) as AudioClip;
+		this.musicTrack.Play ();
 
 		//We set the value of the instance
 		instance = this;
