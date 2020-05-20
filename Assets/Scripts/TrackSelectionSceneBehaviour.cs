@@ -16,6 +16,8 @@ public class TrackSelectionSceneBehaviour : MonoBehaviour
 		firstTrack.onClick.AddListener(
 			delegate{
 				Utilities.setCurrentTrack("Sounds/Music/FirstTrack");
+				Utilities.setCurrentTrackName("First Track");
+				Utilities.setCurrentTrackDificulty("Beginner");
 				SceneManager.LoadScene("guidedModeScene");
 			});
 		

@@ -7,8 +7,6 @@ public class NoteBehaviour : MonoBehaviour
 	public Utilities.DrumParts drumNote;
 	private bool inTime = false;
 	private bool offBeat = false;
-	private GameObject parentObject;
-	private GeneralBeatsBehaviour parentScript;
 	private bool beenHitted;
 
     // Start is called before the first frame update

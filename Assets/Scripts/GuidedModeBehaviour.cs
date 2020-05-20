@@ -12,8 +12,12 @@ public class GuidedModeBehaviour : MonoBehaviour
 	private int onBeatNotes;
 	private int offBeatNotes;
 
+	//Number of notes in total
+	private int totalNotes;
+
 	//Varible to know if the track is paused
 	private bool isPaused;
+	private bool isStarted = false;
 
 	//We create an instance of the class so the notes can acces the code
 	public static GuidedModeBehaviour instance;
@@ -32,6 +36,8 @@ public class GuidedModeBehaviour : MonoBehaviour
 		this.missedNotes = 0;
 		this.onBeatNotes = 0;
 		this.offBeatNotes = 0;
+
+		this.totalNotes = FindObjectsOfType<NoteBehaviour> ().Length;
 
 		this.isPaused = false;
 
@@ -65,6 +71,7 @@ public class GuidedModeBehaviour : MonoBehaviour
 		this.musicTrack.clip = Resources.Load (Utilities.getCurrentTrack()) as AudioClip;
 		this.musicTrack.Play ();
 
+		this.isStarted = true;
 		//We set the value of the instance
 		instance = this;
     }
@@ -77,6 +84,21 @@ public class GuidedModeBehaviour : MonoBehaviour
 			this.musicTrack.Pause ();
 			this.pauseMenu.SetActive (true);
 			this.isPaused = true;
+		}
+
+		//If the music is not paused and the track is not paused, the the game is finished
+		if (this.isStarted && !this.isPaused && !this.musicTrack.isPlaying) {
+			//Before changing the scenes we need to close the port so we can open it later
+			this.midiCrontoller.closePort();
+
+			//We save the score earned to show it in the result scene
+			Utilities.setTotalNotes(this.totalNotes);
+			Utilities.setPerfectNotes(this.onBeatNotes);
+			Utilities.setGoodNotes(this.offBeatNotes);
+			Utilities.setMissedNotes(this.missedNotes);
+
+			//We change the scene to show the results
+			SceneManager.LoadScene("resultsScene");
 		}
     }
 

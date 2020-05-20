@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/guidedModeScene.unity
     guid: 2ae0fdfc4b1225a44ab66d248e5f2ad9
+  - enabled: 1
+    path: Assets/Scenes/resultsScene.unity
+    guid: 8ac8e7b062570e0428076bd7c9c80e0b
   m_configObjects: {}
