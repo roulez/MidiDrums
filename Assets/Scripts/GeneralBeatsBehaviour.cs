@@ -16,6 +16,7 @@ public class GeneralBeatsBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+		//We only update the position of the notes if the game is not paused
 		if (!GuidedModeBehaviour.instance.getIsPaused()) {
 			transform.position -= new Vector3 (0f, this.notesSpeed * Time.deltaTime, 0f); 
 		}

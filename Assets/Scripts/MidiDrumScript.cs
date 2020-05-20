@@ -145,6 +145,9 @@ public class MidiDrumScript {
 		}
 	}
 
+	/*
+	 * Method to close the port so we can open it again later
+	*/
 	public void closePort(){
 		this.arduinoPort.Close ();
 	}

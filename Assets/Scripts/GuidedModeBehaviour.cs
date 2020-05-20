@@ -35,6 +35,7 @@ public class GuidedModeBehaviour : MonoBehaviour
 
 		this.isPaused = false;
 
+		//Funcionality for the resume button in the pause menu
 		resumeButton.onClick.AddListener(
 			delegate{
 				this.musicTrack.Play ();
@@ -42,12 +43,15 @@ public class GuidedModeBehaviour : MonoBehaviour
 				this.isPaused = false;
 			});
 
+		//Funcionality for the exit button in the pause menu
 		exitButton.onClick.AddListener(
 			delegate{
+				//Before changing the scenes we need to close the port so we can open it later
 				this.midiCrontoller.closePort();
 				SceneManager.LoadScene("trackSelectionScene");
 			});
 
+		//Funcionality for the button to pause the play mode
 		pauseButton.onClick.AddListener(
 			delegate{
 				if(!this.isPaused){
@@ -68,6 +72,7 @@ public class GuidedModeBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+		//When the user presses the escape key, we pause the game
 		if (Input.GetKeyDown (KeyCode.Escape)) {
 			this.musicTrack.Pause ();
 			this.pauseMenu.SetActive (true);
