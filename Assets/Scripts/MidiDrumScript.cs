@@ -144,4 +144,8 @@ public class MidiDrumScript {
 			audioSources [sensor].Play ();
 		}
 	}
+
+	public void closePort(){
+		this.arduinoPort.Close ();
+	}
 }

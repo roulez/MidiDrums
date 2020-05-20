@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GuidedModeBehaviour : MonoBehaviour
 {
@@ -10,11 +12,18 @@ public class GuidedModeBehaviour : MonoBehaviour
 	private int onBeatNotes;
 	private int offBeatNotes;
 
+	//Varible to know if the track is paused
+	private bool isPaused;
+
 	//We create an instance of the class so the notes can acces the code
 	public static GuidedModeBehaviour instance;
 
 	//Audio clip of the background music for the track
 	public AudioSource musicTrack;
+
+	//Pàuse menu items
+	public GameObject pauseMenu;
+	public Button resumeButton, exitButton, pauseButton;
 
     // Start is called before the first frame update
     void Start()
@@ -23,6 +32,30 @@ public class GuidedModeBehaviour : MonoBehaviour
 		this.missedNotes = 0;
 		this.onBeatNotes = 0;
 		this.offBeatNotes = 0;
+
+		this.isPaused = false;
+
+		resumeButton.onClick.AddListener(
+			delegate{
+				this.musicTrack.Play ();
+				this.pauseMenu.SetActive (false);
+				this.isPaused = false;
+			});
+
+		exitButton.onClick.AddListener(
+			delegate{
+				this.midiCrontoller.closePort();
+				SceneManager.LoadScene("trackSelectionScene");
+			});
+
+		pauseButton.onClick.AddListener(
+			delegate{
+				if(!this.isPaused){
+					this.musicTrack.Pause ();
+					this.pauseMenu.SetActive (true);
+					this.isPaused = true;
+				}
+			});
 
 		//We load the audio from the track that is selected and we play it
 		this.musicTrack.clip = Resources.Load (Utilities.getCurrentTrack()) as AudioClip;
@@ -35,7 +68,11 @@ public class GuidedModeBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+		if (Input.GetKeyDown (KeyCode.Escape)) {
+			this.musicTrack.Pause ();
+			this.pauseMenu.SetActive (true);
+			this.isPaused = true;
+		}
     }
 
 
@@ -89,5 +126,9 @@ public class GuidedModeBehaviour : MonoBehaviour
 	public void noteMissed(){
 		this.missedNotes++;
 		Debug.Log ("Note Missed: " + this.missedNotes);
+	}
+
+	public bool getIsPaused(){
+		return this.isPaused;
 	}
 }
