@@ -27,7 +27,7 @@ public class GuidedModeBehaviour : MonoBehaviour
 
 	//Pàuse menu items
 	public GameObject pauseMenu;
-	public Button resumeButton, exitButton, pauseButton;
+	public Button resumeButton, restartButton, exitButton, pauseButton;
 
     // Start is called before the first frame update
     void Start()
@@ -55,6 +55,14 @@ public class GuidedModeBehaviour : MonoBehaviour
 				//Before changing the scenes we need to close the port so we can open it later
 				this.midiCrontoller.closePort();
 				SceneManager.LoadScene("trackSelectionScene");
+			});
+
+		//Funcionality for the restart button in the pause menu
+		restartButton.onClick.AddListener(
+			delegate{
+				//Before changing the scenes we need to close the port so we can open it later
+				this.midiCrontoller.closePort();
+				SceneManager.LoadScene("guidedModeScene");
 			});
 
 		//Funcionality for the button to pause the play mode
