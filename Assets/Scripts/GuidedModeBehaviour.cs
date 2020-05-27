@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Melanchall.DryWetMidi.Core;
+using Melanchall.DryWetMidi.Interaction;
 
 public class GuidedModeBehaviour : MonoBehaviour
 {
@@ -32,6 +34,13 @@ public class GuidedModeBehaviour : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+		var test = MidiFile.Read("Assets/Resources/Sounds/Music/DANCE3.mid");
+		var notes = test.GetNotes();
+
+		foreach (var item in notes)
+		{
+			Debug.Log("Tiempo: " + item.Time + "| Nota: " + item.NoteNumber + "| Longitud: " + item.Length);
+		}
 		this.midiCrontoller = new MidiDrumScript (this.gameObject);
 		this.missedNotes = 0;
 		this.onBeatNotes = 0;
