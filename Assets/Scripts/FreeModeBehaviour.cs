@@ -5,28 +5,19 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class FreeModeBehaviour : MonoBehaviour {
-	private List<GameObject> drumParts;
+	private InputBehaviour[] drumParts;
 	MidiDrumScript midiCrontoller;
 	int volume;
 	int sensor;
 	string arduinoInput;
 	private Button backButton;
 	private float timeOnScreen = 0.5f;
+	public
 
 	// Use this for initialization
 	void Start () {
-		this.drumParts = new List<GameObject> ();
-
 		//Images that represent the differnt parts of the Drum
-		this.drumParts.Add(GameObject.Find("RightCymbal"));
-		this.drumParts.Add(GameObject.Find("RightDrum"));
-		this.drumParts.Add(GameObject.Find("CentralDrum"));
-		this.drumParts.Add(GameObject.Find("LeftCymbal"));
-		this.drumParts.Add(GameObject.Find("LeftDrum"));
-
-		foreach (GameObject go in this.drumParts) {
-			go.gameObject.SetActive(false);
-		}
+		this.drumParts = FindObjectsOfType<InputBehaviour> ();
 
 		//Button to exit the free mode
 		backButton = GameObject.Find("BackButton").GetComponent<Button>();
@@ -51,20 +42,16 @@ public class FreeModeBehaviour : MonoBehaviour {
 				this.sensor = int.Parse(aux [0]);
 				this.volume = int.Parse(aux [1]);
 				this.midiCrontoller.playSound (this.sensor,this.volume);
-				StartCoroutine(ManageImagery(this.sensor));
+
+				for(int i = 0; i < this.drumParts.Length; i++){
+					if((int)this.drumParts[i].drumNote == this.sensor){
+						this.drumParts[i].changeImage();
+					}
+				}
 			}
 		}
 		catch(System.Exception ex){
 			Debug.Log (ex);
 		}
-	}
-
-	/*
-	 * Shows the image of the drum part that has been hited
-	*/
-	IEnumerator ManageImagery(int sensor){
-		this.drumParts[sensor].gameObject.SetActive(true);
-		yield return new WaitForSeconds(this.timeOnScreen);
-		this.drumParts[sensor].gameObject.SetActive(false);
 	}
 }
