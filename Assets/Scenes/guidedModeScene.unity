@@ -441,6 +441,7 @@ GameObject:
   - component: {fileID: 156174638}
   - component: {fileID: 156174639}
   - component: {fileID: 156174640}
+  - component: {fileID: 156174641}
   m_Layer: 8
   m_Name: LeftCymbal
   m_TagString: Input
@@ -560,6 +561,21 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.3503, y: 1.018325}
   m_EdgeRadius: 0
+--- !u!114 &156174641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 156174636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc4c9b6ae31101a42b3ae8d9dd4da5c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  drumNote: 3
+  normalImage: {fileID: 21300000, guid: 2b6de0561ddf8d14aa18274fd31fd32c, type: 3}
+  pressedImage: {fileID: 21300000, guid: b986953133d391d448ae7615060f03fa, type: 3}
 --- !u!1001 &167660904
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1763,6 +1779,7 @@ GameObject:
   - component: {fileID: 593178962}
   - component: {fileID: 593178963}
   - component: {fileID: 593178964}
+  - component: {fileID: 593178965}
   m_Layer: 8
   m_Name: RightDrum
   m_TagString: Input
@@ -1882,6 +1899,21 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.3503, y: 1.018325}
   m_EdgeRadius: 0
+--- !u!114 &593178965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 593178960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc4c9b6ae31101a42b3ae8d9dd4da5c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  drumNote: 1
+  normalImage: {fileID: 21300000, guid: 952fa073c26abef4cb9fe551aad173d3, type: 3}
+  pressedImage: {fileID: 21300000, guid: c9a103b429f845949a36fbe9d684a559, type: 3}
 --- !u!1 &676796773
 GameObject:
   m_ObjectHideFlags: 0
@@ -1894,6 +1926,7 @@ GameObject:
   - component: {fileID: 676796775}
   - component: {fileID: 676796776}
   - component: {fileID: 676796777}
+  - component: {fileID: 676796778}
   m_Layer: 0
   m_Name: LeftDrum
   m_TagString: Input
@@ -2013,6 +2046,21 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.3502998, y: 1.0183251}
   m_EdgeRadius: 0
+--- !u!114 &676796778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 676796773}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc4c9b6ae31101a42b3ae8d9dd4da5c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  drumNote: 4
+  normalImage: {fileID: 21300000, guid: a7159c55fa0f0124dafc6b9b51c304b7, type: 3}
+  pressedImage: {fileID: 21300000, guid: 983291d948cfcb6469732ffafef19ff9, type: 3}
 --- !u!1 &682647209
 GameObject:
   m_ObjectHideFlags: 0
@@ -3087,6 +3135,7 @@ GameObject:
   - component: {fileID: 1377250523}
   - component: {fileID: 1377250524}
   - component: {fileID: 1377250525}
+  - component: {fileID: 1377250526}
   m_Layer: 8
   m_Name: RightCymbal
   m_TagString: Input
@@ -3206,6 +3255,21 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.3503, y: 1.018325}
   m_EdgeRadius: 0
+--- !u!114 &1377250526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1377250521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc4c9b6ae31101a42b3ae8d9dd4da5c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  drumNote: 0
+  normalImage: {fileID: 21300000, guid: 8d2b150ce69db0d44a6089b92ce018c6, type: 3}
+  pressedImage: {fileID: 21300000, guid: 5e8c958d7f7069c4395e8fbaf5993405, type: 3}
 --- !u!1 &1402892579
 GameObject:
   m_ObjectHideFlags: 0
@@ -4078,6 +4142,7 @@ GameObject:
   - component: {fileID: 1877111593}
   - component: {fileID: 1877111594}
   - component: {fileID: 1877111595}
+  - component: {fileID: 1877111596}
   m_Layer: 8
   m_Name: CentralDrum
   m_TagString: Input
@@ -4197,6 +4262,21 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.3503, y: 1.018325}
   m_EdgeRadius: 0
+--- !u!114 &1877111596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1877111591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc4c9b6ae31101a42b3ae8d9dd4da5c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  drumNote: 2
+  normalImage: {fileID: 21300000, guid: c4e763d953d5f094386c3dd4bab93cb0, type: 3}
+  pressedImage: {fileID: 21300000, guid: 59774633aa39f3e4da3caa2b2c7eeec0, type: 3}
 --- !u!1 &1912598716
 GameObject:
   m_ObjectHideFlags: 0

@@ -7,6 +7,10 @@ using UnityEngine.SceneManagement;
 public class GuidedModeBehaviour : MonoBehaviour
 {
 	private MidiDrumScript midiCrontoller;
+
+	//Array with the inputs where the notes can be played
+	private InputBehaviour[] drumParts;
+
 	//Score of the player whith the notes pressed
 	private int missedNotes;
 	private int onBeatNotes;
@@ -32,6 +36,9 @@ public class GuidedModeBehaviour : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+		//Images that represent the differnt parts of the Drum
+		this.drumParts = FindObjectsOfType<InputBehaviour> ();
+		
 		this.midiCrontoller = new MidiDrumScript (this.gameObject);
 		this.missedNotes = 0;
 		this.onBeatNotes = 0;
@@ -87,26 +94,46 @@ public class GuidedModeBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-		//When the user presses the escape key, we pause the game
-		if (Input.GetKeyDown (KeyCode.Escape)) {
-			this.musicTrack.Pause ();
-			this.pauseMenu.SetActive (true);
-			this.isPaused = true;
-		}
+		try{
+			//When the user presses the escape key, we pause the game
+			if (Input.GetKeyDown (KeyCode.Escape)) {
+				this.musicTrack.Pause ();
+				this.pauseMenu.SetActive (true);
+				this.isPaused = true;
+			}
 
-		//If the music is not paused and the track is not paused, the the game is finished
-		if (this.isStarted && !this.isPaused && !this.musicTrack.isPlaying) {
-			//Before changing the scenes we need to close the port so we can open it later
-			this.midiCrontoller.closePort();
+			//If the music is not paused and the track is not paused, the the game is finished
+			if (this.isStarted && !this.isPaused && !this.musicTrack.isPlaying) {
+				//Before changing the scenes we need to close the port so we can open it later
+				this.midiCrontoller.closePort();
 
-			//We save the score earned to show it in the result scene
-			Utilities.setTotalNotes(this.totalNotes);
-			Utilities.setPerfectNotes(this.onBeatNotes);
-			Utilities.setGoodNotes(this.offBeatNotes);
-			Utilities.setMissedNotes(this.missedNotes);
+				//We save the score earned to show it in the result scene
+				Utilities.setTotalNotes(this.totalNotes);
+				Utilities.setPerfectNotes(this.onBeatNotes);
+				Utilities.setGoodNotes(this.offBeatNotes);
+				Utilities.setMissedNotes(this.missedNotes);
 
-			//We change the scene to show the results
-			SceneManager.LoadScene("resultsScene");
+				//We change the scene to show the results
+				SceneManager.LoadScene("resultsScene");
+			}
+
+			/*if(!this.isPaused){
+				var arduinoInput = this.midiCrontoller.readPort();
+
+				if (arduinoInput != "") {
+					var aux = arduinoInput.Split ('-');
+
+					var sensor = int.Parse(aux [0]);
+
+					for(int i = 0; i < this.drumParts.Length; i++){
+						if((int)this.drumParts[i].drumNote == sensor){
+							this.drumParts[i].changeImage();
+						}
+					}
+				}
+			}*/
+		}catch(System.Exception ex){
+			Debug.Log (ex);
 		}
     }
 
@@ -124,6 +151,12 @@ public class GuidedModeBehaviour : MonoBehaviour
 
 				int note = int.Parse(aux [0]);
 				int volume = int.Parse(aux [1]);
+
+				for(int i = 0; i < this.drumParts.Length; i++){
+					if((int)this.drumParts[i].drumNote == note){
+						this.drumParts[i].changeImage();
+					}
+				}
 
 				//If the note pressed is the correct one, we play the note sound and we return that is has been pressed
 				if (sensor == note) {
