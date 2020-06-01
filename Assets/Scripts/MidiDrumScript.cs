@@ -12,11 +12,11 @@ public class MidiDrumScript {
 
 	//Initializes the path to the sound files
 	string[] soundFiles = {
-					"Sounds/DrumSounds/0"
-					,"Sounds/DrumSounds/1"
-					,"Sounds/DrumSounds/2"
-					,"Sounds/DrumSounds/3"
-					,"Sounds/DrumSounds/4"
+					"Sounds/DrumSounds/Crash"
+					,"Sounds/DrumSounds/Tom-2"
+					,"Sounds/DrumSounds/Tom-1"
+					,"Sounds/DrumSounds/Hi-Hat"
+					,"Sounds/DrumSounds/Snare"
 						};
 	List<AudioSource> audioSources = new List<AudioSource>();
 	public string midiData = "";
