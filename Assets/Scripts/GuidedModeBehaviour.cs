@@ -29,6 +29,9 @@ public class GuidedModeBehaviour : MonoBehaviour
 	//Audio clip of the background music for the track
 	public AudioSource musicTrack;
 
+	//Time before the music starts
+	public float waitingTime = 3.5f;
+
 	//Pàuse menu items
 	public GameObject pauseMenu;
 	public Button resumeButton, restartButton, exitButton, pauseButton;
@@ -82,11 +85,13 @@ public class GuidedModeBehaviour : MonoBehaviour
 				}
 			});
 
-		//We load the audio from the track that is selected and we play it
+		StartCoroutine(PlaySong());
+
+		/*//We load the audio from the track that is selected and we play it
 		this.musicTrack.clip = Resources.Load (Utilities.getCurrentTrack()) as AudioClip;
 		this.musicTrack.Play ();
 
-		this.isStarted = true;
+		this.isStarted = true;*/
 		//We set the value of the instance
 		instance = this;
     }
@@ -103,7 +108,7 @@ public class GuidedModeBehaviour : MonoBehaviour
 			}
 
 			//If the music is not paused and the track is not paused, the the game is finished
-			if (this.isStarted && !this.isPaused && !this.musicTrack.isPlaying) {
+			/*if (this.isStarted && !this.isPaused && !this.musicTrack.isPlaying) {
 				//Before changing the scenes we need to close the port so we can open it later
 				this.midiCrontoller.closePort();
 
@@ -115,7 +120,7 @@ public class GuidedModeBehaviour : MonoBehaviour
 
 				//We change the scene to show the results
 				SceneManager.LoadScene("resultsScene");
-			}
+			}*/
 
 			/*if(!this.isPaused){
 				var arduinoInput = this.midiCrontoller.readPort();
@@ -198,5 +203,18 @@ public class GuidedModeBehaviour : MonoBehaviour
 
 	public bool getIsPaused(){
 		return this.isPaused;
+	}
+
+	/*
+	 * Plays the song with a specified retard
+	*/
+	IEnumerator PlaySong(){
+		//this.spriteRenderer.sprite = pressedImage;
+		yield return new WaitForSeconds(this.waitingTime);
+		//this.musicTrack.clip = Resources.Load (Utilities.getCurrentTrack()) as AudioClip;
+		this.musicTrack.Play ();
+
+		this.isStarted = true;
+		//this.spriteRenderer.sprite = normalImage;
 	}
 }

@@ -31,7 +31,7 @@ public class TrackSelectionSceneBehaviour : MonoBehaviour
 					//Debug.Log("Tiempo: " + item.Time + "| Nota: " + item.NoteNumber + "| Longitud: " + item.Length);
 				}*/
 
-				Utilities.setCurrentTrack("Sounds/Music/FirstTrack");
+				Utilities.setCurrentTrack("Sounds/Music/Test");
 				Utilities.setCurrentTrackName("First Track");
 				Utilities.setCurrentTrackDificulty("Beginner");
 				SceneManager.LoadScene("guidedModeScene");
