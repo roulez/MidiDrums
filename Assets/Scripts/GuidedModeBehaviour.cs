@@ -108,7 +108,7 @@ public class GuidedModeBehaviour : MonoBehaviour
 			}
 
 			//If the music is not paused and the track is not paused, the the game is finished
-			/*if (this.isStarted && !this.isPaused && !this.musicTrack.isPlaying) {
+			if (this.isStarted && !this.isPaused && !this.musicTrack.isPlaying) {
 				//Before changing the scenes we need to close the port so we can open it later
 				this.midiCrontoller.closePort();
 
@@ -120,7 +120,7 @@ public class GuidedModeBehaviour : MonoBehaviour
 
 				//We change the scene to show the results
 				SceneManager.LoadScene("resultsScene");
-			}*/
+			}
 
 			/*if(!this.isPaused){
 				var arduinoInput = this.midiCrontoller.readPort();
