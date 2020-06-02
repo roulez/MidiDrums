@@ -29,8 +29,9 @@ public class GuidedModeBehaviour : MonoBehaviour
 	//Audio clip of the background music for the track
 	public AudioSource musicTrack;
 
-	//Time before the music starts
+	//Time before the music starts and between scene change
 	public float waitingTime = 3.5f;
+	public float endTime = 1.5f;
 
 	//Pàuse menu items
 	public GameObject pauseMenu;
@@ -119,24 +120,9 @@ public class GuidedModeBehaviour : MonoBehaviour
 				Utilities.setMissedNotes(this.missedNotes);
 
 				//We change the scene to show the results
-				SceneManager.LoadScene("resultsScene");
+				StartCoroutine(EndTrack());
 			}
 
-			/*if(!this.isPaused){
-				var arduinoInput = this.midiCrontoller.readPort();
-
-				if (arduinoInput != "") {
-					var aux = arduinoInput.Split ('-');
-
-					var sensor = int.Parse(aux [0]);
-
-					for(int i = 0; i < this.drumParts.Length; i++){
-						if((int)this.drumParts[i].drumNote == sensor){
-							this.drumParts[i].changeImage();
-						}
-					}
-				}
-			}*/
 		}catch(System.Exception ex){
 			Debug.Log (ex);
 		}
@@ -209,12 +195,18 @@ public class GuidedModeBehaviour : MonoBehaviour
 	 * Plays the song with a specified retard
 	*/
 	IEnumerator PlaySong(){
-		//this.spriteRenderer.sprite = pressedImage;
 		yield return new WaitForSeconds(this.waitingTime);
-		//this.musicTrack.clip = Resources.Load (Utilities.getCurrentTrack()) as AudioClip;
+		this.musicTrack.clip = Resources.Load (Utilities.getCurrentTrack()) as AudioClip;
 		this.musicTrack.Play ();
 
 		this.isStarted = true;
-		//this.spriteRenderer.sprite = normalImage;
+	}
+
+	/*
+	 * A few seconds after the song is over brings up the result screen
+	*/
+	IEnumerator EndTrack(){
+		yield return new WaitForSeconds(this.endTime);
+		SceneManager.LoadScene("resultsScene");
 	}
 }
