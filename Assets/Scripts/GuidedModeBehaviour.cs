@@ -151,7 +151,7 @@ public class GuidedModeBehaviour : MonoBehaviour
 
 				//If the note pressed is the correct one, we play the note sound and we return that is has been pressed
 				if (sensor == note) {
-					this.midiCrontoller.playSound (sensor,volume);
+					this.midiCrontoller.playSound (sensor);
 					return true;
 				}
 			}

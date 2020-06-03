@@ -18,14 +18,26 @@ public class MidiDrumScript {
 					,"Sounds/DrumSounds/Hi-Hat"
 					,"Sounds/DrumSounds/Snare"
 						};
+	//Array of the different audio sources of the instrument					
 	List<AudioSource> audioSources = new List<AudioSource>();
+	//Number of piezos of the instrument
+	private const int numberOfPiezos = 5;
+	//Variables used to read the data from the arduino
 	public string midiData = "";
 	private bool finished = false;
-	private const int numberOfPiezos = 5;
 	public List<string> midiArray = new List<string>();
 	public List<string> midiAux = new List<string>();
 	public List<bool> midiFinished = new List<bool>();
 
+	//Volume control for the notes
+	public int minVolume = 0;
+	public int maxVolume = 127;
+	//Minimun volumen of the sounds we play
+	public float thressholdVolume = 0.15f;
+
+	/*
+	 * Constructor which adds the audio sources of the instruments to the game object passed
+	*/
 	public MidiDrumScript(GameObject gameObject){
 		this.midiArray = new List<string>();
 		this.midiFinished = new List<bool>();
@@ -47,6 +59,9 @@ public class MidiDrumScript {
 		}
 	}
 
+	/*
+	 * Constructor of the arduino reader
+	*/
 	public MidiDrumScript(){
 		this.midiArray = new List<string>();
 		this.midiFinished = new List<bool>();
@@ -63,7 +78,7 @@ public class MidiDrumScript {
 	}
 		
 	/*
-	 * Reads and returns the data read from the arduino in format 'Piezo-Volume'
+	 * Reads and returns the data read from the arduino in format 'Piezo-Volume'. Used in the free mode.
 	*/
 	public string readPort(){
 		try{
@@ -95,6 +110,10 @@ public class MidiDrumScript {
 		}
 	}
 
+	/*
+	 * We read the data from the arduino but chceck the data corresponding to an expecified sensor.
+	 * With this we make sure that if a sensor reads the data corresponding to another sensor the data is not lost. Used in the guided mode.
+	*/
 	public string readMultiplePorts(int sensor){
 		try{
 			//If we have an input saved for thah sensor, we pick that input and return it
@@ -137,10 +156,27 @@ public class MidiDrumScript {
 	}
 
 	/*
-	 * Plays the sound of a sensor with an specified volume
+	 * Plays the sound of a sensor, independient of the volume. Used in the guided mode.
+	*/
+	public void playSound(int sensor){
+		//We check if the sensor is correct
+		if (sensor >= 0 && sensor <= this.audioSources.Count) {
+			//We play the corresponding sound effect
+			audioSources [sensor].Play ();
+		}
+	}
+
+	/*
+	 * Plays the sound of a sensor with an specified volume. Used in the free mode.
 	*/
 	public void playSound(int sensor, int volume){
+		//We get the normalized value of the sound effect
+		float newVolume = this.normalizeVolume(volume);
+
+		//We check if the sensor is correct
 		if (sensor >= 0 && sensor <= this.audioSources.Count) {
+			//We play the corresponding sound effect with the corresponding volume
+			audioSources [sensor].volume = newVolume;
 			audioSources [sensor].Play ();
 		}
 	}
@@ -150,5 +186,21 @@ public class MidiDrumScript {
 	*/
 	public void closePort(){
 		this.arduinoPort.Close ();
+	}
+
+	/*
+	 * We transform the volume value in a value between 0 and 1 so we can change the audio source volume
+	*/
+	public float normalizeVolume(int volume){
+		float newVolume = 0.0f;
+
+		newVolume = ((float)(volume - this.minVolume) / (float)(this.maxVolume - this.minVolume));
+
+		//We consider the values below the thresshold as the thresshold so some sound is played since the arduino registered the hit
+		if(newVolume < this.thressholdVolume){
+			newVolume = this.thressholdVolume;
+		}
+
+		return newVolume;
 	}
 }
