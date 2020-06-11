@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5705810275139697637}
   - component: {fileID: 1614460665005404928}
   - component: {fileID: 9080814536218620419}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: LeftCymbalNote
   m_TagString: Untagged
   m_Icon: {fileID: 0}
