@@ -17,11 +17,12 @@ public class MidiDrumScript {
 					,"Sounds/DrumSounds/Tom-1"
 					,"Sounds/DrumSounds/Hi-Hat"
 					,"Sounds/DrumSounds/Snare"
+					,"Sounds/DrumSounds/Kick"
 						};
 	//Array of the different audio sources of the instrument					
 	List<AudioSource> audioSources = new List<AudioSource>();
 	//Number of piezos of the instrument
-	private const int numberOfPiezos = 5;
+	private const int numberOfPiezos = 6;
 	//Variables used to read the data from the arduino
 	public string midiData = "";
 	private bool finished = false;

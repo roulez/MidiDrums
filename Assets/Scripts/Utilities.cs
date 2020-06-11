@@ -9,6 +9,7 @@ public static class Utilities {
 		,CentralDrum = 2
 		,LeftCymbal = 3
 		,LeftDrum = 4
+		,Kick = 5
 	}
 
 	//Track information

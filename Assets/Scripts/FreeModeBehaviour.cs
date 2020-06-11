@@ -42,6 +42,7 @@ public class FreeModeBehaviour : MonoBehaviour {
 				var aux = this.arduinoInput.Split ('-');
 
 				//We parse the sensor and the volume of the hit and we play the correct sound effect
+				Debug.Log(this.arduinoInput);
 				this.sensor = int.Parse(aux [0]);
 				this.volume = int.Parse(aux [1]);
 				this.midiCrontoller.playSound (this.sensor,this.volume);
