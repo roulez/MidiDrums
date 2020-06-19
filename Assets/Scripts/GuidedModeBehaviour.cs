@@ -73,7 +73,7 @@ public class GuidedModeBehaviour : MonoBehaviour
 			delegate{
 				//Before changing the scenes we need to close the port so we can open it later
 				this.midiCrontoller.closePort();
-				SceneManager.LoadScene("guidedModeScene");
+				SceneManager.LoadScene(Utilities.getCurrentTrackScene ());
 			});
 
 		//Funcionality for the button to pause the play mode

@@ -11,7 +11,6 @@ public class FreeModeBehaviour : MonoBehaviour {
 	int sensor;
 	string arduinoInput;
 	private Button backButton;
-	private float timeOnScreen = 0.5f;
 	public
 
 	// Use this for initialization

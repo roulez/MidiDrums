@@ -17,10 +17,13 @@ public class TrackSelectionSceneBehaviour : MonoBehaviour
 		firstTrack = GameObject.Find("FirstTrack").GetComponent<Button>();
 		firstTrack.onClick.AddListener(
 			delegate{
+				//We save the data of the track in the Utilities class so we can have acces to it in the different scenes
 				Utilities.setCurrentTrack("Sounds/Music/FirstTrack");
 				Utilities.setCurrentTrackName("First Track");
 				Utilities.setCurrentTrackDificulty("Beginner");
-				SceneManager.LoadScene("guidedModeScene");
+				Utilities.setCurrentTrackScene("firstTrackScene");
+				//We load the scene thaat the user has picked
+				SceneManager.LoadScene("firstTrackScene");
 			});
 		
 		//Button to start the training mode of the App

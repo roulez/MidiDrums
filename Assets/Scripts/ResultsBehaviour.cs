@@ -23,7 +23,7 @@ public class ResultsBehaviour : MonoBehaviour
 		//Funcionality for the replay button
 		replayButton.onClick.AddListener(
 			delegate{
-				SceneManager.LoadScene("guidedModeScene");
+				SceneManager.LoadScene(Utilities.getCurrentTrackScene ());
 			});
 
 		//Funcionality for the exit button

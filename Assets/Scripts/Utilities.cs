@@ -16,6 +16,7 @@ public static class Utilities {
 	private static string currentTrack = "";
 	private static string currentTrackName = "";
 	private static string currentTrackDificulty = "";
+	private static string currentTrackScene = "";
 
 	//Score earned after finishing a track
 	private static int totalNotes = 0;
@@ -48,6 +49,15 @@ public static class Utilities {
 
 	public static void setCurrentTrackDificulty(string newDificulty){
 		currentTrackDificulty = newDificulty;
+	}
+
+	//Get and set of the track scene name
+	public static string getCurrentTrackScene(){
+		return currentTrackScene;
+	}
+
+	public static void setCurrentTrackScene(string newScene){
+		currentTrackScene = newScene;
 	}
 
 	//Get and set of the number of notes of the track
