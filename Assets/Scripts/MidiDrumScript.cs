@@ -117,7 +117,7 @@ public class MidiDrumScript {
 	*/
 	public string readMultiplePorts(int sensor){
 		try{
-			//If we have an input saved for thah sensor, we pick that input and return it
+			//If we have an input saved for that sensor, we pick that input and return it
 			if(this.midiArray[sensor] != "" && this.midiFinished[sensor]){
 				//We empty the entry so next time we read it from the arduino
 				var aux = this.midiArray[sensor];
