@@ -34,7 +34,7 @@ public class MidiDrumScript {
 	public int minVolume = 0;
 	public int maxVolume = 127;
 	//Minimun volumen of the sounds we play
-	public float thressholdVolume = 0.15f;
+	public float thresholdVolume = 0.15f;
 
 	/*
 	 * Constructor which adds the audio sources of the instruments to the game object passed
@@ -198,8 +198,8 @@ public class MidiDrumScript {
 		newVolume = ((float)(volume - this.minVolume) / (float)(this.maxVolume - this.minVolume));
 
 		//We consider the values below the thresshold as the thresshold so some sound is played since the arduino registered the hit
-		if(newVolume < this.thressholdVolume){
-			newVolume = this.thressholdVolume;
+		if(newVolume < this.thresholdVolume){
+			newVolume = this.thresholdVolume;
 		}
 
 		return newVolume;
